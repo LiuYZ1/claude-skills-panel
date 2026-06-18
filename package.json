@@ -2,8 +2,8 @@
   "name": "claude-skills-panel",
   "displayName": "Claude Skills Panel",
   "description": "在 VS Code 侧边栏展示所有 Claude Code 技能，一键复制调用",
-  "version": "1.0.0",
-  "publisher": "claude-user",
+  "version": "1.0.1",
+  "publisher": "LiuYZ1",
   "license": "MIT",
   "engines": {
     "vscode": "^1.120.0"
