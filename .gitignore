@@ -1,0 +1,8 @@
+node_modules/
+out/
+*.vsix
+package-lock.json
+_add_tag.js
+_fix_*.js
+_check_*.js
+_rebuild_*.js

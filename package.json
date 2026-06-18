@@ -1,0 +1,74 @@
+{
+  "name": "claude-skills-panel",
+  "displayName": "Claude Skills Panel",
+  "description": "在 VS Code 侧边栏展示所有 Claude Code 技能，一键复制调用",
+  "version": "1.0.0",
+  "publisher": "claude-user",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.120.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "claude",
+    "skills",
+    "claude-code"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "claude-skills",
+          "title": "Claude Skills",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "claude-skills": [
+        {
+          "type": "webview",
+          "id": "claudeSkillsPanelSidebar",
+          "name": "技能面板"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "claude-skills-panel.copySkill",
+        "title": "Claude Skills: 复制技能命令"
+      },
+      {
+        "command": "claude-skills-panel.sendToClaude",
+        "title": "Claude Skills: 发送技能到 Claude"
+      },
+      {
+        "command": "claude-skills-panel.refreshSkills",
+        "title": "Claude Skills: 刷新本地技能"
+      },
+      {
+        "command": "claude-skills-panel.importSkill",
+        "title": "Claude Skills: 从 Git 导入技能"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./tsconfig.json",
+    "watch": "tsc -watch -p ./tsconfig.json",
+    "package": "vsce package",
+    "install": "code --install-extension claude-skills-panel-1.0.0.vsix"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.3",
+    "@types/vscode": "^1.120.0",
+    "@vscode/vsce": "^3.9.2",
+    "typescript": "^5.9.3"
+  }
+}
