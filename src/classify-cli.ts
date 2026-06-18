@@ -131,10 +131,35 @@ JSON array:`;
   }
 
   const result = JSON.parse(jsonMatch[0]);
+
+  // Known good categories for normalization
+  const validCategories = [
+    "代码审查与质量", "测试与调试", "架构与设计", "前端开发", "后端开发",
+    "DevOps与部署", "数据库", "项目管理", "文档与写作", "研究与分析",
+    "安全审查", "AI与机器学习", "工具与效率", "UI/UX设计", "其他"
+  ];
+
+  // Normalize: fix garbled Chinese characters by matching closest valid category
+  function normalizeCategory(cat: string): string {
+    // Direct match
+    if (validCategories.includes(cat)) return cat;
+    // Try to find best match (for garbled chars like "项��管理" -> "项目管理")
+    for (const valid of validCategories) {
+      // Check if they share significant common characters
+      const validChars = new Set(valid);
+      const catChars = new Set(cat);
+      let common = 0;
+      for (const c of catChars) { if (validChars.has(c)) common++; }
+      const ratio = common / Math.max(catChars.size, validChars.size);
+      if (ratio > 0.6) return valid;
+    }
+    return cat;
+  }
+
   const output: Record<string, string> = {};
   for (const item of result) {
     if (item.command && item.category) {
-      output[item.command] = item.category;
+      output[item.command] = normalizeCategory(item.category);
     }
   }
 
