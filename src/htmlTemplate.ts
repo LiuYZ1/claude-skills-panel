@@ -15,6 +15,13 @@ export function getWebviewContent(skills: SkillItem[], cspSource: string, groupM
   const groups = groupSkills(skills, groupMode);
   const groupEntries = Object.entries(groups);
 
+  // Sort so "未分类" always at top, then alphabetical
+  groupEntries.sort(([a], [b]) => {
+    if (a.includes("未分类")) return -1;
+    if (b.includes("未分类")) return 1;
+    return a.localeCompare(b, "zh-CN");
+  });
+
   const cardsHtml = groupEntries.map(([groupName, items]) => {
     const itemCards = items.map((skill) => {
       const displayLabel = skill.alias || skill.labelCn || skill.label;
